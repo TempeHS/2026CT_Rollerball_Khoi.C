@@ -37,7 +37,7 @@ public class PlayerController : MonoBehaviour
         if (count >= 12)
         {
             winTextObject.SetActive(true);
-            winTextObject.text = "You Win!";
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Win!";
 
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
         }
@@ -56,7 +56,7 @@ public class PlayerController : MonoBehaviour
         {
             Destroy(gameObject);
             winTextObject.gameObject.SetActive(true);
-            winTextObject.text = "You Lose";
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose";
         }
     }
 
