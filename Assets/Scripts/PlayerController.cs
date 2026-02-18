@@ -12,6 +12,7 @@ public class PlayerController : MonoBehaviour
     private int count;
     private float movementX;
     private float movementY;
+    private int maxCount = 12;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -30,17 +31,17 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
-
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString();
-        if (count >= 12)
+        countText.text = "Count: " + count.ToString() + "/" + maxCount;
+        if (count >= maxCount)
         {
             winTextObject.SetActive(true);
             winTextObject.GetComponent<TextMeshProUGUI>().text = "You Win!";
-
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
+
         }
+
     }
 
     void FixedUpdate()
@@ -49,25 +50,32 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(movement * speed);
     }
-
-    private void OnCollisionEnter(Collision collision)
+   private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-            Destroy(gameObject);
+
+            Destroy(gameObject); 
+ 
+
             winTextObject.gameObject.SetActive(true);
-            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose";
+            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+ 
         }
+
     }
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.gameObject.CompareTag("PickUp"))
+        if(other.gameObject.CompareTag("PickUp"))
         {
             other.gameObject.SetActive(false);
             count = count + 1;
-
             SetCountText();
         }
+        
     }
+   
+   
+   
 }
