@@ -33,7 +33,7 @@ public class PlayerController : MonoBehaviour
     }
     void SetCountText()
     {
-        countText.text = "Count: " + count.ToString() + "/" + maxCount;
+        countText.text = "Collected: " + count.ToString() + "/" + maxCount;
         if (count >= maxCount)
         {
             winTextObject.SetActive(true);
