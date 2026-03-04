@@ -12,7 +12,7 @@ public class PlayerController : MonoBehaviour
     private int count;
     private float movementX;
     private float movementY;
-    private int maxCount = 12;
+    private int maxCount = 18;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
