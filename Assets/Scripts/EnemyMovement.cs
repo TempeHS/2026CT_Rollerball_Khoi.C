@@ -3,8 +3,9 @@ using UnityEngine.AI;
 
 public class EnemyMovement : MonoBehaviour
 {
-    public int publicCount;
+    public PlayerController playerControllerReference;
     public Transform player;
+    private int count;
 
     private NavMeshAgent navMeshAgent;
     private double speed;
@@ -18,15 +19,17 @@ public class EnemyMovement : MonoBehaviour
     }
 
     // Update is called once per frame
+    void Awake()
+    {
+        playerControllerReference = GetComponent
+    }
+
     void Update()
     {
         if (player != null)
         {
             navMeshAgent.SetDestination(player.position);
-            speed = 2.5 + (publicCount / 5);
-            enemySpeed = (float)speed;
-            Debug.Log("Speed: " + speed);
-            Debug.Log("Enemy Speed: " + enemySpeed);
+            Debug.Log("Count: " + playerControllerReference.publicCount);
             navMeshAgent.speed = enemySpeed;
         }
     }

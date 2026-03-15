@@ -4537,6 +4537,7 @@ MonoBehaviour:
   speed: 10
   countText: {fileID: 1799563577}
   winTextObject: {fileID: 863345258}
+  publicCount: 0
 --- !u!114 &1851115319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5162,6 +5163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a6d96bd517a33d41a0bfc18e72074ab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerControllerReference: {fileID: 1851115318}
   player: {fileID: 1851115317}
 --- !u!1001 &2088244803
 PrefabInstance:
