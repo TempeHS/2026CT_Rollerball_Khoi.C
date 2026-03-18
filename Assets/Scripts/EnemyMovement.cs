@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.AI;
+using TMPro;
 
 public class EnemyMovement : MonoBehaviour
 {
     public PlayerController playerControllerReference;
     public Transform player;
-    private int count;
+    public TextMeshProUGUI enemySpeedText;
 
+    private int count;
     private NavMeshAgent navMeshAgent;
     private double speed;
     private float enemySpeed = 2.5f;
@@ -18,18 +20,16 @@ public class EnemyMovement : MonoBehaviour
         navMeshAgent.speed = enemySpeed;
     }
 
-    // Update is called once per frame
-    void Awake()
-    {
-        playerControllerReference = GetComponent
-    }
-
     void Update()
     {
         if (player != null)
         {
             navMeshAgent.SetDestination(player.position);
-            Debug.Log("Count: " + playerControllerReference.publicCount);
+            count = playerControllerReference.publicCount;
+            speed = 2.5 + ((double)count / 8);
+            enemySpeed = (float)speed;
+            enemySpeedText.text = "Enemy Speed: " + speed.ToString();
+            Debug.Log("Count: " + count + " | Speed: " + speed + " | enemySpeed: " + enemySpeed);
             navMeshAgent.speed = enemySpeed;
         }
     }
