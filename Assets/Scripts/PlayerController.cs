@@ -1,19 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using System.Threading.Tasks;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 0;
     public TextMeshProUGUI countText;
+    public TextMeshProUGUI stunsText;
     public GameObject winTextObject;
     public int publicCount;
+    public int stunActive = 0;
 
     private Rigidbody rb;
     private int count;
     private float movementX;
     private float movementY;
     private int maxCount = 20;
+    private float stuns = 0;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,6 +26,7 @@ public class PlayerController : MonoBehaviour
         count = 0;
 
         SetCountText();
+        SetStunsText();
         winTextObject.SetActive(false);
     }
 
@@ -44,6 +49,10 @@ public class PlayerController : MonoBehaviour
         }
 
     }
+    void SetStunsText()
+    {
+        stunsText.text = "Stuns: " + stuns.ToString();
+    }
 
     void FixedUpdate()
     {
@@ -51,19 +60,23 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(movement * speed);
     }
-   private void OnCollisionEnter(Collision collision)
+   async void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
-
-            Destroy(gameObject); 
+            if (stuns > 0)
+            {
+                for (stunActive=6; stunActive < 1; stunActive--) 
+                {
+                    await Task.Delay(System.TimeSpan.FromSeconds(1));
+                }
+            } else {
+                Destroy(gameObject); 
  
-
-            winTextObject.gameObject.SetActive(true);
-            winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
- 
+                winTextObject.gameObject.SetActive(true);
+                winTextObject.GetComponent<TextMeshProUGUI>().text = "You Lose!";
+            }
         }
-
     }
 
     private void OnTriggerEnter(Collider other) 
@@ -75,9 +88,11 @@ public class PlayerController : MonoBehaviour
             publicCount = count;
             SetCountText();
         }
-        
+        if(other.gameObject.CompareTag("PowerUp"))
+        {
+            other.gameObject.SetActive(false);
+            stuns = stuns + 1;
+            SetStunsText();
+        }
     }
-   
-   
-   
 }
