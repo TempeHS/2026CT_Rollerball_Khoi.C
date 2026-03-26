@@ -66,9 +66,13 @@ public class PlayerController : MonoBehaviour
         {
             if (stuns > 0)
             {
-                for (stunActive=6; stunActive < 1; stunActive--) 
+                stuns = stuns - 1;
+                SetStunsText();
+                stunActive = 10;
+                while (stunActive > 0) 
                 {
-                    await Task.Delay(System.TimeSpan.FromSeconds(1));
+                    await Task.Delay(System.TimeSpan.FromSeconds(0.5));
+                    stunActive = stunActive - 1;
                 }
             } else {
                 Destroy(gameObject); 
