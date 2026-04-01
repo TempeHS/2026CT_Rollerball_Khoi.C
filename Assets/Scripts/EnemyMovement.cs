@@ -25,16 +25,18 @@ public class EnemyMovement : MonoBehaviour
     {
         if (player != null)
         {
-            stunTimer = playerControllerReference.stunActive;
-            Debug.Log(stunTimer);
-            if (stunTimer == 0)
+            if (player.position.x != 0 && player.position.z != 0)
             {
-                navMeshAgent.SetDestination(player.position);
-                count = playerControllerReference.publicCount;
-                speed = 2.5 + ((double)count / 8);
-                enemySpeed = (float)speed;
-                enemySpeedText.text = "Enemy Speed: " + speed.ToString();
-                navMeshAgent.speed = enemySpeed;
+                stunTimer = playerControllerReference.stunActive;
+                if (stunTimer == 0)
+                {
+                    navMeshAgent.SetDestination(player.position);
+                    count = playerControllerReference.publicCount;
+                    speed = 2.5 + ((double)count / 8);
+                    enemySpeed = (float)speed;
+                    enemySpeedText.text = "Enemy Speed: " + speed.ToString();
+                    navMeshAgent.speed = enemySpeed;
+                }
             }
         }
     }
