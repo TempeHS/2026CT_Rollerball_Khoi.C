@@ -9,7 +9,6 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public TextMeshProUGUI stunsText;
     public GameObject winTextObject;
-    public GameObject darkenedBG;
     public int publicCount;
     public int stunActive = 0;
 
@@ -29,9 +28,6 @@ public class PlayerController : MonoBehaviour
         SetCountText();
         SetStunsText();
         winTextObject.SetActive(false);
-        darkenedBG.SetActive(false);
-        countText.text = "";
-        stunsText.text = "";
     }
 
     void OnMove(InputValue movementValue)
@@ -49,7 +45,6 @@ public class PlayerController : MonoBehaviour
             winTextObject.SetActive(true);
             winTextObject.GetComponent<TextMeshProUGUI>().text = "You Win!";
             Destroy(GameObject.FindGameObjectWithTag("Enemy"));
-
         }
 
     }
