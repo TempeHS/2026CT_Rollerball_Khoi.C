@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public TextMeshProUGUI stunsText;
     public GameObject winTextObject;
+    public GameObject darkenedBG;
     public int publicCount;
     public int stunActive = 0;
 
@@ -28,6 +29,9 @@ public class PlayerController : MonoBehaviour
         SetCountText();
         SetStunsText();
         winTextObject.SetActive(false);
+        darkenedBG.SetActive(false);
+        countText.text = "";
+        stunsText.text = "";
     }
 
     void OnMove(InputValue movementValue)
@@ -60,7 +64,7 @@ public class PlayerController : MonoBehaviour
 
         rb.AddForce(movement * speed);
     }
-   async void OnCollisionEnter(Collision collision)
+    async void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
         {
