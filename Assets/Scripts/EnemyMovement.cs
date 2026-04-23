@@ -13,17 +13,33 @@ public class EnemyMovement : MonoBehaviour
     private NavMeshAgent navMeshAgent;
     private double speed;
     private float enemySpeed = 2.5f;
+    private bool gameStart = false;
+    private bool gamePaused = false;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         navMeshAgent = GetComponent<NavMeshAgent>();
         navMeshAgent.speed = enemySpeed;
+        enemySpeedText.text = "";
+
+    }
+
+    public void StartGame() {
+        gameStart = true;
+    }
+
+    public void PauseGame() {
+        gamePaused = true;
+    }
+
+    public void UnpauseGame() {
+        gamePaused = false;
     }
 
     void Update()
     {
-        if (player != null)
+        if (player != null && gameStart == true && gamePaused == false)
         {
             if (player.position.x != 0 && player.position.z != 0)
             {

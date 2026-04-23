@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     public TextMeshProUGUI countText;
     public TextMeshProUGUI stunsText;
     public GameObject winTextObject;
+    public GameObject darkenedBG;
     public int publicCount;
     public int stunActive = 0;
 
@@ -18,16 +19,35 @@ public class PlayerController : MonoBehaviour
     private float movementY;
     private int maxCount = 20;
     private float stuns = 0;
+    private bool gamePaused = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
         count = 0;
+        countText.text = "";
+        stunsText.text = "";
+        winTextObject.SetActive(false);
+        darkenedBG.SetActive(false);
+    }
 
+    public void PauseGame()
+    {
+        gamePaused = true;
+        Time.timeScale = 0f;
+    }
+
+    public void UnpauseGame()
+    {
+        gamePaused = false;
+        Time.timeScale = 1f;
+    }
+
+    public void StartGame()
+    {
+        rb = GetComponent<Rigidbody>();
         SetCountText();
         SetStunsText();
-        winTextObject.SetActive(false);
     }
 
     void OnMove(InputValue movementValue)
@@ -55,10 +75,14 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        Vector3 movement = new Vector3(movementX, 0.0f, movementY);
+        if(gamePaused == false) 
+        {
+            Vector3 movement = new Vector3(movementX, 0.0f, movementY);
 
-        rb.AddForce(movement * speed);
+            rb.AddForce(movement * speed);
+        }
     }
+
     async void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
